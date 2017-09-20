@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * @file
+ * General hook implementations.
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function islandora_2064_test_block_info() {
+  $block = array();
+
+  $block['test'] = array(
+    'info' => 'ISLANDORA-2064 test block',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $block;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function islandora_2064_test_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'test':
+      $block['subject'] = t('ISLANDORA-2064 test block');
+      $block['content'] = drupal_get_form('islandora_2064_test_form');
+      break;
+
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_islandora_object_access().
+ */
+function islandora_2064_test_islandora_object_access($op, AbstractObject $object, $user) {
+  return _islandora_2064_test_do_the_thing($op);
+}
+
+/**
+ * Implements hook_islandora_datastream_access().
+ */
+function islandora_2064_test_islandora_datastream_access($op, AbstractDatastream $datastream, $user) {
+  return _islandora_2064_test_do_the_thing($op);
+}
+
+function _islandora_2064_test_do_the_thing($op) {
+  $access = variable_get('islandora_2064_test_settings', array());
+
+  if (!isset($access[$op])) {
+    return NULL;
+  }
+  elseif ($access[$op]) {
+    return FALSE;
+  }
+}
+
+/**
+ * Form building function.
+ */
+function islandora_2064_test_form($form, &$form_state) {
+  $form['#tree'] = TRUE;
+
+
+  $form['islandora_2064_test_settings'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Permissions to deny'),
+    '#description' => t('Not enforced per object or datastream, but across everything...'),
+    '#options' => array(
+      ISLANDORA_ADD_DS => t('Add datastream'),
+      ISLANDORA_METADATA_EDIT => t('Edit metadata'),
+      ISLANDORA_PAGED_CONTENT_EDIT_OCR => t('Edit OCR'),
+      ISLANDORA_PURGE => t('Purge objects and datastreams'),
+      ISLANDORA_BASIC_COLLECTION_CREATE_CHILD_COLLECTION => t('Create child collections'),
+    ),
+    '#default_value' => variable_get('islandora_2064_test_settings', array()),
+  );
+
+  return system_settings_form($form);
+}

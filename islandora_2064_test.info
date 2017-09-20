@@ -1,0 +1,8 @@
+name = ISLANDORA-2064 Test Module
+description = "Mess with some permissions."
+package = Islandora
+dependencies[] = islandora
+dependencies[] = islandora_basic_collection
+dependencies[] = islandora_paged_content
+version = 7.x-dev
+core = 7.x

@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Hooks for (un)installation.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function islandora_2064_test_uninstall() {
+  $vars = array(
+    'islandora_2064_test_settings',
+  );
+  array_map('variable_del', $vars);
+}
