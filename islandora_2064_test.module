@@ -78,6 +78,11 @@ function islandora_2064_test_form($form, &$form_state) {
       ISLANDORA_PAGED_CONTENT_EDIT_OCR => t('Edit OCR'),
       ISLANDORA_PURGE => t('Purge objects and datastreams'),
       ISLANDORA_BASIC_COLLECTION_CREATE_CHILD_COLLECTION => t('Create child collections'),
+      ISLANDORA_VIEW_DATASTREAM_HISTORY => t('View datastream history'),
+      'view technical metadata' => t('View technical metadata (islandora_fits)'),
+      'download premis metadata' => t('Download PREMIS (islandora_premis)'),
+      'view premis metadata' => t('View PREMIS (islandora_premis)'),
+      'bypass inactive object state' => t('Bypass inactive state (islandora_simple_workflow)'),
     ),
     '#default_value' => variable_get('islandora_2064_test_settings', array()),
   );
